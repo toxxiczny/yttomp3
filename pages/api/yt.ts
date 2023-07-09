@@ -11,6 +11,10 @@ export default async function handler(
   try {
     const { yt, filename }: Form = body;
 
+    if (!fs.existsSync("./downloads")) {
+      fs.mkdirSync("./downloads");
+    }
+
     if (!ytdl.validateURL(yt)) {
       return res.status(404).send("Video not found");
     }
@@ -29,6 +33,6 @@ export default async function handler(
       } else {
         res.status(200).send("File saved");
       }
-    }, 5000);
+    }, 0);
   } catch (error) {}
 }
